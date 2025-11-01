@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Bot Client</title>
+</head>
+<body>
+    <button id="connect-daily">Connect Daily</button>
+    <button id="connect-smallwebrtc">Connect SmallWebRTC</button>
+    <p id="status"></p>
+    <audio id="audio" autoplay></audio>
+    <script src="https://unpkg.com/@daily-co/daily-js"></script>
+    <script>
+        const connectDailyBtn = document.getElementById('connect-daily');
+        const connectSmallBtn = document.getElementById('connect-smallwebrtc');
+        const audio = document.getElementById('audio');
+        const status = document.getElementById('status');
+        let callFrame = null;
+        let peerConnection = null;
+
+        const setStatus = (message, isError = false) => {
+            status.textContent = message;
+            status.style.color = isError ? 'red' : 'green';
+        };
+
+        const cleanupDaily = () => {
+            if (callFrame) {
+                callFrame.destroy();
+                callFrame = null;
+            }
+        };
+
+        const cleanupPeer = () => {
+            if (peerConnection) {
+                peerConnection.getSenders().forEach((sender) => sender.track?.stop());
+                peerConnection.close();
+                peerConnection = null;
+            }
+        };
+        
+        connectDailyBtn.onclick = async () => {
+            cleanupPeer();
+            setStatus('Connexion Daily en cours…');
+
+            try {
+                const response = await fetch('/connect', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ transport_type: 'daily' })
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.json().catch(() => ({}));
+                    throw new Error(errorBody.detail || response.statusText);
+                }
+
+                const { dailyRoom, dailyToken } = await response.json();
+
+                cleanupDaily();
+                callFrame = window.DailyIframe.createFrame();
+
+                callFrame.on('track-started', (event) => {
+                    if (event.track.kind === 'audio' && !event.participant.local) {
+                        audio.srcObject = new MediaStream([event.track]);
+                    }
+                });
+
+                await callFrame.join({ url: dailyRoom, token: dailyToken });
+                setStatus('Connecté via Daily');
+            } catch (error) {
+                cleanupDaily();
+                setStatus(`Erreur Daily: ${error.message ?? error}`, true);
+                console.error('Daily connection error:', error);
+            }
+        };
+
+        connectSmallBtn.onclick = async () => {
+            cleanupDaily();
+            cleanupPeer();
+            setStatus('Connexion SmallWebRTC en cours…');
+
+            const pc = new RTCPeerConnection();
+            peerConnection = pc;
+
+            const playbackStream = new MediaStream();
+            audio.srcObject = playbackStream;
+
+            pc.addTransceiver('audio', { direction: 'sendrecv' });
+            pc.addEventListener('track', (event) => {
+                if (event.track.kind === 'audio') {
+                    playbackStream.addTrack(event.track);
+                }
+            });
+
+            try {
+                const offer = await pc.createOffer();
+                await pc.setLocalDescription(offer);
+
+                const response = await fetch('/offer', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ sdp: offer.sdp, type: offer.type })
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.json().catch(() => ({}));
+                    throw new Error(errorBody.detail || response.statusText);
+                }
+
+                const answer = await response.json();
+                const remoteDesc = { type: answer.type ?? 'answer', sdp: answer.sdp };
+                await pc.setRemoteDescription(remoteDesc);
+                setStatus('Connecté via SmallWebRTC');
+            } catch (error) {
+                cleanupPeer();
+                setStatus(`Erreur SmallWebRTC: ${error.message ?? error}`, true);
+                console.error('SmallWebRTC connection error:', error);
+            }
+        };
+    </script>
+</body>
+</html>

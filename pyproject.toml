@@ -1,0 +1,16 @@
+[project]
+name = "azuredebug"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp>=3.13.2",
+    "fastapi>=0.120.4",
+    "httpx>=0.28.1",
+    "loguru>=0.7.3",
+    "pipecat-ai[azure,daily,silero,webrtc]>=0.0.92",
+    "python-dotenv>=1.2.1",
+    "uvicorn>=0.38.0",
+    "websockets>=15.0.1",
+]
