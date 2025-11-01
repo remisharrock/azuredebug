@@ -1,0 +1,45 @@
+I did not authorize the mic because it was already authorized.
+I had a timeout (impossible to hear the TTS)
+
+this is the timeout for azure TTS:
+2025-11-01 18:08:37.055 | ERROR    | pipecat.services.azure.tts:_handle_canceled:301 - Speech synthesis canceled: CancellationReason.Error
+
+uv run python main.py -v                                                      ✔  41s  
+2025-11-01 18:07:39.727 | INFO     | pipecat:<module>:14 - ᓚᘏᗢ Pipecat 0.0.92 (Python 3.11.13 (main, Aug 28 2025, 17:07:15) [Clang 20.1.4 ]) ᓚᘏᗢ
+INFO:     Started server process [263295]
+INFO:     Waiting for application startup.
+2025-11-01 18:07:39.806 | INFO     | __main__:lifespan:185 - Serveur démarré - Prêt à recevoir des clients
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://localhost:7860 (Press CTRL+C to quit)
+INFO:     ::1:34140 - "GET /client HTTP/1.1" 200 OK
+2025-11-01 18:07:44.085 | INFO     | __main__:connect:96 - Requête de connexion reçue: {'transport_type': 'daily'}
+2025-11-01 18:07:44.723 | INFO     | __main__:connect:110 - Room Daily créée: https://neoc.daily.co/GUQItmC0AYpuEOi4CRd7
+INFO:     ::1:34140 - "POST /connect HTTP/1.1" 200 OK
+2025-11-01 18:07:45.366 | DEBUG    | pipecat.runner.utils:_get_transport_params:382 - Using transport params for daily
+2025-11-01 18:07:45.369 | INFO     | bot:run_bot:50 - Starting bot
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking Pipeline#0::Source -> AzureTTSService#0
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking AzureTTSService#0 -> DailyOutputTransport#0
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking DailyOutputTransport#0 -> Pipeline#0::Sink
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking PipelineTask#0::Source -> Pipeline#0
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking Pipeline#0 -> PipelineTask#0::Sink
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.pipeline.runner:run:71 - Runner PipelineRunner#0 started running PipelineTask#0
+2025-11-01 18:07:45.369 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_start:591 - PipelineTask#0: Starting. Waiting for StartFrame#0 to reach the end of the pipeline...
+2025-11-01 18:07:45.371 | INFO     | pipecat.transports.daily.transport:join:744 - Joining https://neoc.daily.co/GUQItmC0AYpuEOi4CRd7
+2025-11-01 18:07:45.371 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_start:594 - PipelineTask#0: StartFrame#0 reached the end of the pipeline, pipeline is now ready.
+2025-11-01 18:07:47.035 | INFO     | pipecat.transports.daily.transport:join:763 - Joined https://neoc.daily.co/GUQItmC0AYpuEOi4CRd7
+2025-11-01 18:07:47.035 | INFO     | pipecat.transports.daily.transport:_on_participant_joined:2616 - Participant joined 38698a84-b409-4d0c-9ecc-0077c4940a47
+2025-11-01 18:07:47.035 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_end:613 - PipelineTask#0: Closing. Waiting for EndFrame#0 to reach the end of the pipeline...
+2025-11-01 18:07:47.035 | DEBUG    | pipecat.services.azure.tts:run_tts:318 - AzureTTSService#0: Generating TTS [Bonjour le monde je suis ici en France!]
+2025-11-01 18:08:37.055 | ERROR    | pipecat.services.azure.tts:_handle_canceled:301 - Speech synthesis canceled: CancellationReason.Error
+2025-11-01 18:08:37.138 | INFO     | pipecat.transports.daily.transport:leave:845 - Leaving https://neoc.daily.co/GUQItmC0AYpuEOi4CRd7
+2025-11-01 18:08:37.142 | INFO     | pipecat.transports.daily.transport:leave:856 - Left https://neoc.daily.co/GUQItmC0AYpuEOi4CRd7
+2025-11-01 18:08:37.143 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_end:619 - PipelineTask#0: EndFrame#0 reached the end of the pipeline, pipeline is closing.
+2025-11-01 18:08:37.143 | DEBUG    | pipecat.pipeline.task:run:488 - Pipeline task PipelineTask#0 is finishing...
+2025-11-01 18:08:37.144 | DEBUG    | pipecat.pipeline.task:run:493 - Pipeline task PipelineTask#0 has finished
+2025-11-01 18:08:37.144 | DEBUG    | pipecat.pipeline.runner:run:95 - Runner PipelineRunner#0 finished running PipelineTask#0
+^CINFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-11-01 18:08:44.363 | INFO     | __main__:lifespan:187 - Arrêt du serveur
+INFO:     Application shutdown complete.
+INFO:     Finished server process [263295]
+

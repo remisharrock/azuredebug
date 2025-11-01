@@ -1,0 +1,88 @@
+with TRACE enabled:
+I did not authorize the mic because it was already authorized.
+I had a timeout (impossible to hear the TTS)
+
+
+uv run python main.py -v                                                              ✔ 
+2025-11-01 18:17:47.742 | INFO     | pipecat:<module>:14 - ᓚᘏᗢ Pipecat 0.0.92 (Python 3.11.13 (main, Aug 28 2025, 17:07:15) [Clang 20.1.4 ]) ᓚᘏᗢ
+INFO:     Started server process [279423]
+INFO:     Waiting for application startup.
+2025-11-01 18:17:47.817 | INFO     | __main__:lifespan:185 - Serveur démarré - Prêt à recevoir des clients
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://localhost:7860 (Press CTRL+C to quit)
+2025-11-01 18:17:50.281 | INFO     | __main__:connect:96 - Requête de connexion reçue: {'transport_type': 'daily'}
+2025-11-01 18:17:50.922 | INFO     | __main__:connect:110 - Room Daily créée: https://neoc.daily.co/MudooWT6J7Ym6CQrnO7V
+INFO:     ::1:38254 - "POST /connect HTTP/1.1" 200 OK
+2025-11-01 18:17:51.558 | DEBUG    | pipecat.runner.utils:_get_transport_params:382 - Using transport params for daily
+2025-11-01 18:17:51.560 | INFO     | bot:run_bot:50 - Starting bot
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking Pipeline#0::Source -> AzureTTSService#0
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking AzureTTSService#0 -> DailyOutputTransport#0
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking DailyOutputTransport#0 -> Pipeline#0::Sink
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking PipelineTask#0::Source -> Pipeline#0
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.processors.frame_processor:link:530 - Linking Pipeline#0 -> PipelineTask#0::Sink
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.pipeline.runner:run:71 - Runner PipelineRunner#0 started running PipelineTask#0
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - AzureTTSService#0::__input_frame_task_handler: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - DailyOutputTransport#0::__input_frame_task_handler: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - DailyTransport#0::DailyTransportClient::event_callback_task: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - PipelineTask#0::_process_push_queue: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - TaskObserver::TurnTrackingObserver#0::_proxy_task_handler: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - TaskObserver::IdleFrameObserver#0::_proxy_task_handler: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - PipelineTask#0::_idle_monitor_handler: task created
+2025-11-01 18:17:51.561 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing StartFrame#0 from PipelineTask#0::Source to Pipeline#0
+2025-11-01 18:17:51.561 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing StartFrame#0 from Pipeline#0::Source to AzureTTSService#0
+2025-11-01 18:17:51.561 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_start:591 - PipelineTask#0: Starting. Waiting for StartFrame#0 to reach the end of the pipeline...
+2025-11-01 18:17:51.561 | TRACE    | pipecat.observers.turn_tracking_observer:_start_turn:180 - Turn 1 started
+2025-11-01 18:17:51.561 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - AzureTTSService#0::__process_frame_task_handler: task created
+2025-11-01 18:17:51.562 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing StartFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:17:51.562 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - DailyOutputTransport#0::__process_frame_task_handler: task created
+2025-11-01 18:17:51.562 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing StartFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:17:51.562 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing StartFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:17:51.563 | INFO     | pipecat.transports.daily.transport:join:744 - Joining https://neoc.daily.co/MudooWT6J7Ym6CQrnO7V
+2025-11-01 18:17:51.563 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_start:594 - PipelineTask#0: StartFrame#0 reached the end of the pipeline, pipeline is now ready.
+2025-11-01 18:17:53.146 | INFO     | pipecat.transports.daily.transport:join:763 - Joined https://neoc.daily.co/MudooWT6J7Ym6CQrnO7V
+2025-11-01 18:17:53.146 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - DailyOutputTransport#0::_clock_task_handler: task created
+2025-11-01 18:17:53.146 | TRACE    | pipecat.utils.asyncio.task_manager:create_task:174 - DailyOutputTransport#0::_audio_task_handler: task created
+2025-11-01 18:17:53.146 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing OutputTransportReadyFrame#0 upstream from DailyOutputTransport#0 to AzureTTSService#0
+2025-11-01 18:17:53.146 | INFO     | pipecat.transports.daily.transport:_on_participant_joined:2616 - Participant joined ac2ebcab-b9e7-4200-b921-ecace38438c6
+2025-11-01 18:17:53.146 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing OutputTransportReadyFrame#0 upstream from AzureTTSService#0 to Pipeline#0::Source
+2025-11-01 18:17:53.146 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing OutputTransportReadyFrame#0 upstream from Pipeline#0 to PipelineTask#0::Source
+2025-11-01 18:17:53.146 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSSpeakFrame#0 from PipelineTask#0::Source to Pipeline#0
+2025-11-01 18:17:53.147 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSSpeakFrame#0 from Pipeline#0::Source to AzureTTSService#0
+2025-11-01 18:17:53.147 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing EndFrame#0 from PipelineTask#0::Source to Pipeline#0
+2025-11-01 18:17:53.147 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing EndFrame#0 from Pipeline#0::Source to AzureTTSService#0
+2025-11-01 18:17:53.147 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_end:613 - PipelineTask#0: Closing. Waiting for EndFrame#0 to reach the end of the pipeline...
+2025-11-01 18:17:53.147 | TRACE    | pipecat.observers.turn_tracking_observer:_end_turn:192 - Turn 1 interrupted after 1.59s
+2025-11-01 18:17:53.147 | DEBUG    | pipecat.services.azure.tts:run_tts:318 - AzureTTSService#0: Generating TTS [Bonjour le monde je suis ici en France!]
+2025-11-01 18:17:53.147 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStartedFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:17:53.147 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStartedFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:17:53.147 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStartedFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:18:53.244 | ERROR    | pipecat.services.azure.tts:_handle_canceled:301 - Speech synthesis canceled: CancellationReason.Error
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStoppedFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSTextFrame#0(pts: None, text: [Bonjour le monde je suis ici en France!]) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:18:53.261 | TRACE    | pipecat.services.azure.tts:flush_audio:306 - AzureTTSService#0: flushing audio
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing EndFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStoppedFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStoppedFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSTextFrame#0(pts: None, text: [Bonjour le monde je suis ici en France!]) from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:18:53.261 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSTextFrame#0(pts: None, text: [Bonjour le monde je suis ici en France!]) from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:18:53.261 | INFO     | pipecat.transports.daily.transport:leave:845 - Leaving https://neoc.daily.co/MudooWT6J7Ym6CQrnO7V
+2025-11-01 18:18:53.286 | INFO     | pipecat.transports.daily.transport:leave:856 - Left https://neoc.daily.co/MudooWT6J7Ym6CQrnO7V
+2025-11-01 18:18:53.286 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing EndFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:18:53.286 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing EndFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:18:53.286 | DEBUG    | pipecat.pipeline.task:_wait_for_pipeline_end:619 - PipelineTask#0: EndFrame#0 reached the end of the pipeline, pipeline is closing.
+2025-11-01 18:18:53.286 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - AzureTTSService#0::__input_frame_task_handler: task cancelled
+2025-11-01 18:18:53.286 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - AzureTTSService#0::__process_frame_task_handler: task cancelled
+2025-11-01 18:18:53.286 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - DailyOutputTransport#0::__input_frame_task_handler: task cancelled
+2025-11-01 18:18:53.287 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - DailyOutputTransport#0::__process_frame_task_handler: task cancelled
+2025-11-01 18:18:53.287 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - DailyTransport#0::DailyTransportClient::event_callback_task: task cancelled
+2025-11-01 18:18:53.287 | DEBUG    | pipecat.pipeline.task:run:488 - Pipeline task PipelineTask#0 is finishing...
+2025-11-01 18:18:53.287 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - TaskObserver::TurnTrackingObserver#0::_proxy_task_handler: task cancelled
+2025-11-01 18:18:53.288 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - TaskObserver::IdleFrameObserver#0::_proxy_task_handler: task cancelled
+2025-11-01 18:18:53.288 | TRACE    | pipecat.utils.asyncio.task_manager:run_coroutine:161 - PipelineTask#0::_idle_monitor_handler: task cancelled
+2025-11-01 18:18:53.288 | DEBUG    | pipecat.pipeline.task:run:493 - Pipeline task PipelineTask#0 has finished
+2025-11-01 18:18:53.288 | DEBUG    | pipecat.pipeline.runner:run:95 - Runner PipelineRunner#0 finished running PipelineTask#0
+^CINFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-11-01 18:18:59.682 | INFO     | __main__:lifespan:187 - Arrêt du serveur
+INFO:     Application shutdown complete.
+INFO:     Finished server process [279423]

@@ -1,0 +1,32 @@
+with TRACE enabled:
+sometimes, it takes a few seconds to flush the audio (no timeout)
+I did not authorize the mic because it was already authorized.
+
+extract:
+
+2025-11-01 18:22:39.877 | DEBUG    | pipecat.services.azure.tts:run_tts:318 - AzureTTSService#0: Generating TTS [Bonjour le monde je suis ici en France!]
+2025-11-01 18:22:39.877 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStartedFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:39.877 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStartedFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:22:39.877 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStartedFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:22:50.158 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#0(pts: None, destination: None, size: 1596, frames: 798, sample_rate: 24000, channels: 1) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.158 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#1(pts: None, destination: None, size: 57498, frames: 28749, sample_rate: 24000, channels: 1) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.158 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#2(pts: None, destination: None, size: 50136, frames: 25068, sample_rate: 24000, channels: 1) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.159 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#3(pts: None, destination: None, size: 8890, frames: 4445, sample_rate: 24000, channels: 1) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.159 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#4(pts: None, destination: None, size: 1308, frames: 654, sample_rate: 24000, channels: 1) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.159 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSStoppedFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.159 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSTextFrame#0(pts: None, text: [Bonjour le monde je suis ici en France!]) from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.159 | TRACE    | pipecat.services.azure.tts:flush_audio:306 - AzureTTSService#0: flushing audio
+2025-11-01 18:22:50.159 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing EndFrame#0 from AzureTTSService#0 to DailyOutputTransport#0
+2025-11-01 18:22:50.159 | DEBUG    | pipecat.transports.base_output:_bot_started_speaking:599 - Bot started speaking
+2025-11-01 18:22:50.159 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing BotStartedSpeakingFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing BotStartedSpeakingFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing BotStartedSpeakingFrame#1 upstream from DailyOutputTransport#0 to AzureTTSService#0
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing BotSpeakingFrame#0 from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing BotSpeakingFrame#0 from Pipeline#0 to PipelineTask#0::Sink
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing BotSpeakingFrame#1 upstream from DailyOutputTransport#0 to AzureTTSService#0
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing BotStartedSpeakingFrame#1 upstream from AzureTTSService#0 to Pipeline#0::Source
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing BotStartedSpeakingFrame#1 upstream from Pipeline#0 to PipelineTask#0::Source
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing BotSpeakingFrame#1 upstream from AzureTTSService#0 to Pipeline#0::Source
+2025-11-01 18:22:50.160 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:780 - Pushing BotSpeakingFrame#1 upstream from Pipeline#0 to PipelineTask#0::Source
+2025-11-01 18:22:50.203 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#5(pts: None, destination: None, size: 1920, frames: 960, sample_rate: 24000, channels: 1) from DailyOutputTransport#0 to Pipeline#0::Sink
+2025-11-01 18:22:50.204 | TRACE    | pipecat.processors.frame_processor:__internal_push_frame:767 - Pushing TTSAudioRawFrame#5(pts: None, destination: None, size: 1920, frames: 960, sample_rate: 24000, channels: 1) from Pipeline#0 to PipelineTask#0::Sink
