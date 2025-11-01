@@ -35,10 +35,6 @@ app.add_middleware(
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://localhost:4321",
-        "https://app.neocertif.com",
-        "https://demo.neocertif.com",
-        "https://voiceagent.neocertif.com",
-        "https://ad.neocertif.com",
     ],
     allow_origin_regex=r"https?://192\.168\.1\.\d{1,3}(:\d+)?",
     allow_credentials=True,
@@ -206,7 +202,7 @@ if __name__ == "__main__":
 
     logger.remove(0)
     if args.verbose:
-        logger.add(sys.stderr, level="DEBUG")
+        logger.add(sys.stderr, level="TRACE")
     else:
         logger.add(sys.stderr, level="INFO")
 
