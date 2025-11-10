@@ -8,13 +8,15 @@
     <button id="connect-smallwebrtc">Connect SmallWebRTC</button>
     <p id="status"></p>
     <audio id="audio" autoplay></audio>
-    <script src="https://unpkg.com/@daily-co/daily-js"></script>
-    <script>
+    <script type="module">
+        import { PipecatClient } from "https://esm.run/@pipecat-ai/client-js@latest";
+        import { DailyTransport } from "https://esm.run/@pipecat-ai/daily-transport@latest";
+
         const connectDailyBtn = document.getElementById('connect-daily');
         const connectSmallBtn = document.getElementById('connect-smallwebrtc');
         const audio = document.getElementById('audio');
         const status = document.getElementById('status');
-        let callFrame = null;
+        let pcClient = null;
         let peerConnection = null;
 
         const setStatus = (message, isError = false) => {
@@ -22,11 +24,22 @@
             status.style.color = isError ? 'red' : 'green';
         };
 
-        const cleanupDaily = () => {
-            if (callFrame) {
-                callFrame.destroy();
-                callFrame = null;
+        const cleanupPipecat = async () => {
+            if (!pcClient) {
+                return;
             }
+
+            try {
+                if (typeof pcClient.disconnect === 'function') {
+                    await pcClient.disconnect();
+                } else if (typeof pcClient.destroy === 'function') {
+                    await pcClient.destroy();
+                }
+            } catch (error) {
+                console.warn('Pipecat disconnect warning:', error);
+            }
+
+            pcClient = null;
         };
 
         const cleanupPeer = () => {
@@ -39,6 +52,7 @@
         
         connectDailyBtn.onclick = async () => {
             cleanupPeer();
+            await cleanupPipecat();
             setStatus('Connexion Daily en cours…');
 
             try {
@@ -55,26 +69,35 @@
 
                 const { dailyRoom, dailyToken } = await response.json();
 
-                cleanupDaily();
-                callFrame = window.DailyIframe.createFrame();
-
-                callFrame.on('track-started', (event) => {
-                    if (event.track.kind === 'audio' && !event.participant.local) {
-                        audio.srcObject = new MediaStream([event.track]);
+                const handleBotAudio = (track, participant) => {
+                    if (participant?.local || track.kind !== 'audio') {
+                        return;
                     }
+
+                    const mediaStream = new MediaStream([track]);
+                    audio.srcObject = mediaStream;
+                    audio.play().catch((error) => console.warn('Playback warning:', error));
+                };
+
+                pcClient = new PipecatClient({
+                    transport: new DailyTransport(),
+                    enableMic: true,
+                    callbacks: {
+                        onTrackStarted: handleBotAudio,
+                    },
                 });
 
-                await callFrame.join({ url: dailyRoom, token: dailyToken });
-                setStatus('Connecté via Daily');
+                await pcClient.connect({ url: dailyRoom, token: dailyToken });
+                setStatus('Connecté via Pipecat Daily');
             } catch (error) {
-                cleanupDaily();
+                await cleanupPipecat();
                 setStatus(`Erreur Daily: ${error.message ?? error}`, true);
                 console.error('Daily connection error:', error);
             }
         };
 
         connectSmallBtn.onclick = async () => {
-            cleanupDaily();
+            await cleanupPipecat();
             cleanupPeer();
             setStatus('Connexion SmallWebRTC en cours…');
 
